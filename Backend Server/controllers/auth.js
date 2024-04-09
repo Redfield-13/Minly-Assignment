@@ -2,7 +2,6 @@ const mysql = require('mysql')
 const dotenv = require('dotenv')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const { json } = require('express')
 
 
 dotenv.config({
@@ -85,6 +84,14 @@ exports.login = async (req,res) =>{
                 return res.json({code:400, status:"error", message:"Incorrect Email or Password"})
             }
             else{
+                const token = jwt.sign({id:result[0].id}, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_SECRET
+                })
+                const cookiOption = {
+                    expiresIn:new Date(Date.now()+process.env.COOKIE_EXPIRS *24*60*60*1000),
+                    httpOnly: true
+                }
+                res.cookie("userRegistered",token,cookiOption)
                 return res.json({code:200, status:"Success", message:"Login Completed"})
             }
         })
