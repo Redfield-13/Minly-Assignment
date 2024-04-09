@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const mysql = require('mysql')
 const dotenv = require('dotenv')
+const cors = require('cors')
+
 
 
 dotenv.config({
@@ -11,6 +13,9 @@ dotenv.config({
 
 const app = express()
 
+app.use(cors())
+
+
 const data_base = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -19,7 +24,11 @@ const data_base = mysql.createConnection({
 })
 
 const publicDirectory = path.join(__dirname,)
-console.log(__dirname);
+app.use(express.static(publicDirectory))
+
+app.use(express.urlencoded({extended: false}))
+app.use(express.json())
+
 
 app.set('view engine', 'hbs')
 
@@ -30,10 +39,13 @@ data_base.connect((err)=>{
         console.log("DATABASE conected......");
     }
 })
+// Define Routes
 
-app.get('/', (req,res) =>{
-    res.send("<h1> Home Page </h1>")
-})
+
+app.use('/',require('./routes/pages'))
+
+app.use('/auth', require('./routes/auth'))
+
 
 
 app.listen(3456, ()=>{
