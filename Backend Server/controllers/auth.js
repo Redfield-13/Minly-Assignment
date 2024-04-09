@@ -31,14 +31,15 @@ exports.register = (req,res) =>{
             console.log(error);
         }
         if (results.length > 0) {
-            return res.send(500, {
+            return res.status(401).send({
                 "message": "That email is already taken."
             })
         }
         else if( password != passwordConfirm){
-            console.log("passwords no match");
-            return res.status(400).send({
-                "message": "The passwords do not match."
+            console.log("pasword..........:" +password+"passwordconfirm ..............:"+passwordConfirm);
+            console.log("passwords do not match");
+            return res.status(402).send({
+                message: "The passwords do not match."
             })
         }
 
@@ -71,27 +72,28 @@ exports.login = async (req,res) =>{
     const email = req.body.email
     const password = req.body.password
     if (!email || !password) {
-        return res.json({code:400 ,staus:"error",message:"Email and Password can not be Empty"})
+        console.log({code:401 ,staus:"error",message:"Email and Password can not be Empty"});
+        return res.json({code:401 ,staus:"error",message:"Email and Password can not be Empty"})
     }
     else{
         data_base.query('SELECT * FROM users WHERE email = ?',[email], async(error,result)=>{
             if (error) {
                 throw error
             }
-            console.log(result);
-
             if (!result[0] || !await bcrypt.compare(password, result[0].hashed_password)) {
-                return res.json({code:400, status:"error", message:"Incorrect Email or Password"})
+                console.log({code:402, status:"error", message:"Incorrect Email or Password"});
+                return res.json({code:402, status:"error", message:"Incorrect Email or Password"})
             }
             else{
-                const token = jwt.sign({id:result[0].id}, process.env.JWT_SECRET, {
-                    expiresIn: process.env.JWT_SECRET
-                })
-                const cookiOption = {
-                    expiresIn:new Date(Date.now()+process.env.COOKIE_EXPIRS *24*60*60*1000),
-                    httpOnly: true
-                }
-                res.cookie("userRegistered",token,cookiOption)
+                // const token = jwt.sign({id:result[0].id}, process.env.JWT_SECRET, {
+                //     expiresIn: process.env.JWT_SECRET
+                // })
+                // const cookiOption = {
+                //     expiresIn:new Date(Date.now()+process.env.COOKIE_EXPIRS *24*60*60*1000),
+                //     httpOnly: true
+                // }
+                // res.cookie("userRegistered",token,cookiOption)
+                console.log({code:200, status:"Success", message:"Login Completed"});
                 return res.json({code:200, status:"Success", message:"Login Completed"})
             }
         })

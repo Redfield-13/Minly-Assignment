@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -12,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios  from 'axios';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -31,17 +29,24 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-
-
 export default function SignInSide() {
-
-    const req_url = 'http://localhost:3456/auth/login'
+    const req_url = 'http://localhost:3456/auth/register'
     const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let user_data = {
+    console.log({
+        name: data.get('name'),
         email: data.get('email'),
-        password: data.get('password')
+        password: data.get('password'),
+        passwordConfim: data.get('passwordConfirm')
+
+    });
+    let user_data = {
+        name: data.get('name'),
+        email: data.get('email'),
+        password: data.get('password'),
+        passwordConfirm: data.get('passwordConfirm')
+
     }
     try{
         const response = await axios.post(req_url,user_data)
@@ -50,9 +55,7 @@ export default function SignInSide() {
         console.log(error);
     }
   };
-
-
-
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -90,6 +93,16 @@ export default function SignInSide() {
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+               <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="name"
+                label="Full Name"
+                type="text"
+                id="name"
+                autoComplete="current-password"
+              /> 
               <TextField
                 margin="normal"
                 required
@@ -110,9 +123,15 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="passwordConfirm"
+                label="Password Confirm"
+                type="password"
+                id="passwordConfirm"
+                autoComplete="current-password"
               />
               <Button
                 type="submit"
@@ -120,17 +139,12 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Register
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
-                  <Link href="/register" variant="body2">
-                    {"Don't have an account? Register"}
+                  <Link href="/" variant="body2">
+                    {"Already got an account? Login"}
                   </Link>
                 </Grid>
               </Grid>
