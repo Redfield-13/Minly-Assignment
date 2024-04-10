@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+import {Avatar, Button, CssBaseline} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -13,6 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios  from 'axios';
+
 
 function Copyright(props) {
   return (
@@ -32,7 +31,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 
-
 export default function SignInSide() {
 
     const req_url = 'http://localhost:3456/auth/login'
@@ -46,8 +44,9 @@ export default function SignInSide() {
     try{
         const response = await axios.post(req_url,user_data)
         console.log(response.data);
+        
     } catch(error){
-        console.log(error);
+        console.log("hi",error);
     }
   };
 

@@ -17,6 +17,7 @@ const data_base = mysql.createConnection({
 
 
 exports.register = (req,res) =>{
+    console.log("yes we are");
     console.log(req.body.name);
     const name = req.body.name
     const email = req.body.email
@@ -36,7 +37,6 @@ exports.register = (req,res) =>{
             })
         }
         else if( password != passwordConfirm){
-            console.log("pasword..........:" +password+"passwordconfirm ..............:"+passwordConfirm);
             console.log("passwords do not match");
             return res.status(402).send({
                 message: "The passwords do not match."
@@ -73,7 +73,7 @@ exports.login = async (req,res) =>{
     const password = req.body.password
     if (!email || !password) {
         console.log({code:401 ,staus:"error",message:"Email and Password can not be Empty"});
-        return res.json({code:401 ,staus:"error",message:"Email and Password can not be Empty"})
+        return res.status(401).send({code:401, status:"error", message:"Email and Password can not be Empty"})
     }
     else{
         data_base.query('SELECT * FROM users WHERE email = ?',[email], async(error,result)=>{
@@ -82,7 +82,7 @@ exports.login = async (req,res) =>{
             }
             if (!result[0] || !await bcrypt.compare(password, result[0].hashed_password)) {
                 console.log({code:402, status:"error", message:"Incorrect Email or Password"});
-                return res.json({code:402, status:"error", message:"Incorrect Email or Password"})
+                return res.status(402).send({code:402, status:"error", message:"Incorrect Email or Password"})
             }
             else{
                 // const token = jwt.sign({id:result[0].id}, process.env.JWT_SECRET, {
@@ -94,7 +94,7 @@ exports.login = async (req,res) =>{
                 // }
                 // res.cookie("userRegistered",token,cookiOption)
                 console.log({code:200, status:"Success", message:"Login Completed"});
-                return res.json({code:200, status:"Success", message:"Login Completed"})
+                return res.status(200).send({code:200, status:"Success", message:"Login Completed"})
             }
         })
     }

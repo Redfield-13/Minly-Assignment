@@ -3,6 +3,7 @@ const path = require('path')
 const mysql = require('mysql')
 const dotenv = require('dotenv')
 const cors = require('cors')
+const uploadImage = require('./controllers/upload')
 
 
 
@@ -45,6 +46,7 @@ data_base.connect((err)=>{
 app.use('/',require('./routes/pages'))
 
 app.use('/auth', require('./routes/auth'))
+app.use('/upload', uploadImage)
 
 
 
