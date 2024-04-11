@@ -3,6 +3,7 @@ const Storage_Src = require('firebase/storage')
 const multer = require('multer')
 const express = require('express')
 const Fire_app = require('firebase/app')
+const mysql = require ('mysql')
 
 
 
@@ -27,13 +28,14 @@ const uploadMedia = multer({storage: multer.memoryStorage()})
 
 
 
-router.post('/upload', uploadMedia.single("fileName"), async (req,res)=>{
+router.post('/upload', uploadMedia.single("image"), async (req,res)=>{
     console.log("here!!!!!dhsjizkmxbdshjxbds!!!!!!!!????????????");
 
     try{
         console.log("here!!!!!!!!!!!!!????????????");
         // const dateTime = giveCurrentDateTime()
         // const storageRef = ref(storage , `files/${req.file.originalname + "  " + dateTime}`)
+        console.log(req);
         const storageRef = Storage_Src.ref(storage , `files/${req.file.originalname}`)
         console.log("here????????????");
         const metadata = {
