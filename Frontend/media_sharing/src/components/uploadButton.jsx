@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Grid from '@mui/material/Grid';
 import useMutaion from '../hooks/useMutaion';
-import { useRef } from 'react';
+import { useState, useEffect, useContext, createContext, useRef } from 'react'
+import UserContex from './Context'
 import axios from 'axios';
 
 const VisuallyHiddenInput = styled('input')({
@@ -25,8 +26,9 @@ const URL = '/upload'
 
 
 export default function UploadButton() {
+  let user = useContext(UserContex);
   const {mutate:mute ,isLoading:uploadinf, error: uploadError} = useMutaion({url: URL})
-  const apiUrl = 'http://localhost:3456/upload/upload'
+  const apiUrl = 'http://localhost:3456/upload/upload?authorID='+user.id+'&author='+user.name
   const handleUpload = async (e)=>{
     const file = await e.target.files[0];
     if (file) {

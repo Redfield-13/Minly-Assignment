@@ -50,10 +50,11 @@ router.post('/upload', uploadMedia.single("image"), async (req,res)=>{
         console.log("File Successfuly Uploaded.");
         let data = [[
              downloadURL,
-            'Mojtaba',
-             1,
+            req.query.author,
+             req.query.authorID,
              req.file.mimetype
         ]]
+        console.log('idididid: '+req.query.authorID);
         const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id, mediaType) VALUES ?';
         data_base.query(sql, [data], (error, results) => {
             if (error) {

@@ -4,9 +4,16 @@ import Post from './post'
 import { useState, useEffect, useContext, createContext } from 'react'
 import UserContex from './Context'
 import MediaCover from './videoPost'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+
+    const navigate = useNavigate()
+
     let user = useContext(UserContex);
+    if (user.id == 0) {
+        navigate('/login')
+    }
     console.log(user);
     const [posts, setPosts] = useState(null)
     let postsUrl = 'http://localhost:3456/getImages'

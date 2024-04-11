@@ -12,9 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Home', 'Your Posts'];
-const settings = ['Profile', 'Logout'];
+
+
+
+
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -34,6 +37,10 @@ function ResponsiveAppBar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const navigate = useNavigate()
+  const pages = ['Home','upload'];
+  const settings = ['Profile', 'Logout'];
+
 
   return (
     <AppBar position="static">
@@ -88,10 +95,18 @@ function ResponsiveAppBar(props) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} >
+                  <Typography  textAlign="center"
+                    onClick={() => {
+                      console.log('Navigating to:', page);
+                      navigate(page,{replace:true});
+                    }}>{page}
+                  </Typography>
                 </MenuItem>
               ))}
+              <MenuItem key={'home'}>
+                <Typography></Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -117,7 +132,7 @@ function ResponsiveAppBar(props) {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=> navigate('/'+page, {replace:true})}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}

@@ -13,13 +13,19 @@ router.get('/', (req,res)=>{
 router.get('/getImages', (req,res) =>{
     console.log("get the images");
     let sql_q = 'SELECT * FROM UploadedMedia'
+    let authorID = req.query.authorID
     data_base.query(sql_q, (error,results) =>{
         if (error) {
             console.log('UploadMedia table error : '+error);
             return error;
         }else{
+            let authorPosts;
             console.log('Data : ' + results);
-            res.status(200).send({code: 200, Data: results})
+            if (authorID) {
+                authorPosts = results.filter((post) => post.author_id === parseInt(authorID))
+            }
+            
+            return res.status(200).send({code: 200, Data: results, authorPosts: authorPosts})
         }
         
     })
