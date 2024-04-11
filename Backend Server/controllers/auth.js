@@ -1,19 +1,8 @@
-const mysql = require('mysql')
-const dotenv = require('dotenv')
+const data_base = require('../configs/databaseConfig')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 
-dotenv.config({
-    path:'../.env',
-})
-
-const data_base = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password:process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
-})
 
 
 exports.register = (req,res) =>{
@@ -51,7 +40,8 @@ exports.register = (req,res) =>{
         data_base.query('INSERT INTO users SET ?',{
             email: email,
             hashed_password: hashed_password,
-            name: name
+            name: name,
+            avatar: 'https://ui-avatars.com/api/?name='+name
 
         }, (error,results)=>{
             if (error) {
@@ -94,7 +84,7 @@ exports.login = async (req,res) =>{
                 // }
                 // res.cookie("userRegistered",token,cookiOption)
                 console.log({code:200, status:"Success", message:"Login Completed"});
-                return res.status(200).send({code:200, status:"Success", message:"Login Completed"})
+                return res.status(200).send({code:200, status:"Success", message:"Login Completed", id: result[0].ID , name: result[0].name, avatar: result[0].avatar})
             }
         })
     }

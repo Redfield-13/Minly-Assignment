@@ -7,6 +7,7 @@ dotenv.config({
     path: './.env'
 })
 
+
 const data_base = mysql.createConnection({
     host: 'localhost',
     user: 'minly',

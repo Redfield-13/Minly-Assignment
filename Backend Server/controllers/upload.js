@@ -3,7 +3,8 @@ const Storage_Src = require('firebase/storage')
 const multer = require('multer')
 const express = require('express')
 const Fire_app = require('firebase/app')
-const mysql = require ('mysql')
+const data_base = require('../configs/databaseConfig')
+
 
 
 
@@ -47,6 +48,19 @@ router.post('/upload', uploadMedia.single("image"), async (req,res)=>{
         const downloadURL = await Storage_Src.getDownloadURL(snapShot.ref)
 
         console.log("File Successfuly Uploaded.");
+        let data = [[
+             downloadURL,
+            'Mojtaba',
+             1
+        ]]
+        const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id) VALUES ?';
+        data_base.query(sql, [data], (error, results) => {
+            if (error) {
+              console.error('Error inserting data:', error);
+            } else {
+              console.log('Rows inserted:', results.affectedRows);
+            }
+          });
 
         return res.status(200).send({
             message: "File Uploaded To FIREBASE Storage",
