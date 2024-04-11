@@ -1,28 +1,16 @@
 const express = require('express')
 const path = require('path')
-const mysql = require('mysql')
-const dotenv = require('dotenv')
 const cors = require('cors')
+const data_base = require('./configs/databaseConfig')
 const uploadImage = require('./controllers/upload')
 
 
-
-dotenv.config({
-    path:'./.env',
-})
 
 
 const app = express()
 
 app.use(cors())
 
-
-const data_base = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password:process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
-})
 
 const publicDirectory = path.join(__dirname,)
 app.use(express.static(publicDirectory))
@@ -31,7 +19,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
 
-app.set('view engine', 'hbs')
 
 data_base.connect((err)=>{
     if (err) {
