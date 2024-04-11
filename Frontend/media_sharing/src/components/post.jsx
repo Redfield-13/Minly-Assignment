@@ -12,7 +12,7 @@ export default function MultiActionAreaCard(props) {
     <Card sx={{ maxWidth: 345, margin:'auto', marginTop: 5, boxShadow:10}}>
       <CardActionArea>
         <CardMedia
-          component="img"
+          component='img'
           height="250"
           image={props.image}
           alt="green iguana"

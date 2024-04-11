@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -30,6 +31,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+  const navigate = useNavigate()
     const req_url = 'http://localhost:3456/auth/register'
     const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,6 +53,7 @@ export default function SignInSide() {
     try{
         const response = await axios.post(req_url,user_data)
         console.log(response.data);
+        navigate('/')
     } catch(error){
         console.log(error);
     }

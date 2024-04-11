@@ -51,9 +51,10 @@ router.post('/upload', uploadMedia.single("image"), async (req,res)=>{
         let data = [[
              downloadURL,
             'Mojtaba',
-             1
+             1,
+             req.file.mimetype
         ]]
-        const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id) VALUES ?';
+        const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id, mediaType) VALUES ?';
         data_base.query(sql, [data], (error, results) => {
             if (error) {
               console.error('Error inserting data:', error);
