@@ -28,7 +28,7 @@ const URL = '/upload'
 export default function UploadButton() {
   let user = useContext(UserContex);
   const {mutate:mute ,isLoading:uploadinf, error: uploadError} = useMutaion({url: URL})
-  const apiUrl = 'http://localhost:3456/upload/upload?authorID='+user.id+'&author='+user.name
+  const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/upload/upload?authorID='+user.id+'&author='+user.name
   const handleUpload = async (e)=>{
     const file = await e.target.files[0];
     if (file) {
@@ -37,8 +37,6 @@ export default function UploadButton() {
       form.append('image', file)
       form.append('name', file.name)
       form.append('mimetype', file.type)
-      console.log(form);
-      console.log(mute);
       const response = await axios.post(apiUrl, form, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type

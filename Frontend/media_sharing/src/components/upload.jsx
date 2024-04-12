@@ -22,7 +22,7 @@ function Upload() {
       navigate('/login')
   }
     const [posts, setPosts] = useState(null)
-    let postsUrl = 'http://localhost:3456/getImages?authorID='+user.id
+    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+user.id
     
     useEffect(()=>{
         fetch(postsUrl).then(res =>{
@@ -49,12 +49,14 @@ function Upload() {
                     key={post.id}
                     image={post.file_link}
                     author={post.author}
+                    likes={post.likes}
                     />
                 ) : (
                     <MediaCover
                     key={post.id}
                     media={post.file_link}
                     author={post.author}
+                    likes={post.likes}
                     />
                 )
                 )

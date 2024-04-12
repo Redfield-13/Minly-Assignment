@@ -63,7 +63,6 @@ router.post('/likes', async (req, res) => {
                 return error
             }
             else{
-                console.log(results);
                 return res.status(200).send({code:200, Data: results})
             }
         })

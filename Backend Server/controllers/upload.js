@@ -52,10 +52,13 @@ router.post('/upload', uploadMedia.single("image"), async (req,res)=>{
              downloadURL,
             req.query.author,
              req.query.authorID,
-             req.file.mimetype
+             req.file.mimetype,
+             0,
+             '',
+             ''
         ]]
         console.log('idididid: '+req.query.authorID);
-        const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id, mediaType) VALUES ?';
+        const sql = 'INSERT INTO UploadedMedia (file_link, author, author_id, mediaType, likes, liked, unliked) VALUES ?';
         data_base.query(sql, [data], (error, results) => {
             if (error) {
               console.error('Error inserting data:', error);
