@@ -38,6 +38,21 @@ router.post('/likes', async (req, res) => {
         let sql_q = 'UPDATE UploadedMedia SET likes = ? WHERE id = ?'
         let mediaid = parseInt(req.query.mediaID)
         let likes = parseInt(req.query.currentlikes)
+        let liker = req.query.liker
+        let get_sql = 'SELECT liked from UploadedMedia WHERE id = ?'
+        let likedBy = ''
+        // data_base.query(get_sql,mediaid,(err,results) =>{
+        //     if (err) {
+        //         console.log(err + 'hska');
+        //     }else{
+        //         console.log('Datasssssssss : ' + results[0]);
+        //         likedBy = results
+        //         return results
+        //     }
+            
+        // })
+
+        console.log('likedBY: '+ likedBy);
         if (req.query.operation == 'unlike') {
             likes = likes - 1
         }else{likes = likes + 1}

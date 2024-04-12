@@ -7,34 +7,44 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartBroken from '@mui/icons-material/HeartBroken';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import UserContex from './Context'
 
 export default function MediaCover(props) {
 
-    let liked = false
-    const [likes, setLikes] = useState(props.likes);
-    const apiUrl = 'http://localhost:3456/likes?currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
-    const handleLike = async () => {
-      try {
-        // Make an API request to update the likes count on the server
-        const response = await axios.post(apiUrl+'like', {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-  
-        // If the API request is successful, update the likes count in the client
-        if (!liked) {
-            
-        }
-        setLikes((prevLikes) => prevLikes + 1);
-        liked = true;
-      } catch (error) {
-        console.error(error);
+  let user = useContext(UserContex);
+  let [liked,setLiked] = useState(false)
+  let [unLiked,setUnLiked] = useState(false)
+  const [likes, setLikes] = useState(props.likes);
+  const apiUrl = 'http://localhost:3456/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+  const handleLike = async () => {
+      if (liked) {
+          setLikes(likes-1)
+          setLiked(false)
+      }else{
+          try {
+              // Make an API request to update the likes count on the server
+              const response = await axios.post(apiUrl+'like', {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              // If the API request is successful, update the likes count in the client
+              setLikes(likes + 1);
+              setLiked(true)
+            } catch (error) {
+              console.error(error);
+            }
       }
-    };
-
-    const handleunLike = async () => {
+    
+  };
+  const handleunLike = async () => {
+      if (unLiked) {
+          setLikes(likes + 1)
+          setUnLiked(false)
+      }
+      else{
         try {
           // Make an API request to update the likes count on the server
           const response = await axios.post(apiUrl+'unlike', {
@@ -46,10 +56,13 @@ export default function MediaCover(props) {
     
           // If the API request is successful, update the likes count in the client
           setLikes(likes - 1);
+          setUnLiked(true)
         } catch (error) {
           console.error(error);
         }
-      };
+      }
+      
+    };
 
   return (
     <Box

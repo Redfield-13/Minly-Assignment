@@ -14,6 +14,7 @@ import axios  from 'axios';
 import { useState, createContext, useContext } from "react";
 import UserContex from './Context'
 import { useNavigate } from 'react-router-dom';
+import BasicAlerts from './message';
 
 
 
@@ -38,6 +39,8 @@ const defaultTheme = createTheme();
 
 export default function SignInSide() {
   let user = useContext(UserContex);
+  const [err,setErr] = useState(false)
+  const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
     const req_url = 'http://localhost:3456/auth/login'
@@ -55,9 +58,12 @@ export default function SignInSide() {
         user.id = response.data.id
         user.name = response.data.name
         console.log(user);
+        setErr(false)
         navigate('/home')    
     } catch(error){
-        console.log("hi",error);
+        console.log(error.response.data.message);
+        setErr(true)
+        setMessage(error.response.data.message)
     }
   };
 
@@ -66,24 +72,27 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {err && (
+        <BasicAlerts message = {message}></BasicAlerts>
+      )}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
           xs={false}
           sm={4}
-          md={7}
+          md={8}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://replicate.delivery/pbxt/F80Jksfk6K1qOKJWnHD0NVZsSpYw2iY1NtC6CSfBSnCIympSA/output-20240412043651.jpg)',
             //backgroundImage: 'url(https://assets.minly.com/assets/open-graph-tags/share-image-en.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'right',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,

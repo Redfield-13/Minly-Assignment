@@ -10,8 +10,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BasicAlerts from './message';
 
 function Copyright(props) {
   return (
@@ -31,6 +33,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+
+  const [err,setErr] = useState(false)
+  const [message, setMessage] = useState('')
   const navigate = useNavigate()
     const req_url = 'http://localhost:3456/auth/register'
     const handleSubmit = async (event) => {
@@ -43,6 +48,7 @@ export default function SignInSide() {
         passwordConfim: data.get('passwordConfirm')
 
     });
+    
     let user_data = {
         name: data.get('name'),
         email: data.get('email'),
@@ -50,18 +56,29 @@ export default function SignInSide() {
         passwordConfirm: data.get('passwordConfirm')
 
     }
+    if (user_data.name == '' || user_data.email == '' || user_data.password =='' || user_data.passwordConfim == '') {
+      setMessage('Fields Can Not Be Empty')
+      setErr(true)
+      return null
+    }
     try{
         const response = await axios.post(req_url,user_data)
         console.log(response.data);
+        setErr(false)
         navigate('/')
     } catch(error){
         console.log(error);
+        setErr(true)
+        setMessage(error.response.data.message)
     }
   };
   
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {err && (
+        <BasicAlerts message = {message}></BasicAlerts>
+      )}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -70,13 +87,12 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            //backgroundImage: 'url(https://assets.minly.com/assets/open-graph-tags/share-image-en.jpg)',
+            backgroundImage: 'url(https://replicate.delivery/pbxt/F80Jksfk6K1qOKJWnHD0NVZsSpYw2iY1NtC6CSfBSnCIympSA/output-20240412043651.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'right',
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
