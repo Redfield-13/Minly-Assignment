@@ -8,6 +8,10 @@ import MediaCover from './videoPost';
 import { useState, useEffect, useContext, createContext } from 'react'
 import UserContex from './Context'
 import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 function Upload() {
   let user = useContext(UserContex);
@@ -55,7 +59,23 @@ function Upload() {
                 )
                 )
             ) : (
-                <p>You Don't have any post yet!! Try to post some</p>
+              <Box sx={{
+                width: '100%',
+                maxWidth: 500,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                gap: 2,
+              }}>
+                <Card variant="soft" sx={{margin:'auto'}}>
+                <CardContent>
+                    <Typography level="title-md" textColor="inherit">
+                      NO Posts From You!
+                    </Typography>
+                    <Typography textColor="inherit">Try to post something. Use The Button Above.</Typography>
+              </CardContent>  
+               </Card>
+              </Box>
+             
             )
         )}
         </Grid>

@@ -97,10 +97,7 @@ function ResponsiveAppBar(props) {
               {pages.map((page) => (
                 <MenuItem key={page} >
                   <Typography  textAlign="center"
-                    onClick={() => {
-                      console.log('Navigating to:', page);
-                      navigate(page,{replace:true});
-                    }}>{page}
+                 onClick={()=> navigate('/'+page, {replace:true})}>{page}
                   </Typography>
                 </MenuItem>
               ))}

@@ -32,5 +32,32 @@ router.get('/getImages', (req,res) =>{
 })
 
 
+router.post('/likes', async (req, res) => {
+    try{
+        console.log(req.query);
+        let sql_q = 'UPDATE UploadedMedia SET likes = ? WHERE id = ?'
+        let mediaid = parseInt(req.query.mediaID)
+        let likes = parseInt(req.query.currentlikes)
+        if (req.query.operation == 'unlike') {
+            likes = likes - 1
+        }else{likes = likes + 1}
+        console.log(likes,mediaid);
+        data_base.query(sql_q, [likes , mediaid], (error, results)=>{
+            if (error) {
+                console.log('Like error : ' + error);
+                return error
+            }
+            else{
+                console.log(results);
+                return res.status(200).send({code:200, Data: results})
+            }
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(400).send(error.message)
+    }
+  });
+
+
 
 module.exports = router

@@ -39,12 +39,16 @@ function Home() {
                     key={post.id}
                     image={post.file_link}
                     author={post.author}
+                    likes={post.likes}
+                    id={post.id}
                     />
                 ) : (
                     <MediaCover
                     key={post.id}
                     media={post.file_link}
                     author={post.author}
+                    likes={post.likes}
+                    id={post.id}
                     />
                 )
                 )

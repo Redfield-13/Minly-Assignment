@@ -5,8 +5,52 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import HeartBroken from '@mui/icons-material/HeartBroken';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function MediaCover(props) {
+
+    let liked = false
+    const [likes, setLikes] = useState(props.likes);
+    const apiUrl = 'http://localhost:3456/likes?currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+    const handleLike = async () => {
+      try {
+        // Make an API request to update the likes count on the server
+        const response = await axios.post(apiUrl+'like', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+  
+        // If the API request is successful, update the likes count in the client
+        if (!liked) {
+            
+        }
+        setLikes((prevLikes) => prevLikes + 1);
+        liked = true;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const handleunLike = async () => {
+        try {
+          // Make an API request to update the likes count on the server
+          const response = await axios.post(apiUrl+'unlike', {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+    
+          // If the API request is successful, update the likes count in the client
+          setLikes(likes - 1);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
   return (
     <Box
       component="ul"
@@ -31,7 +75,9 @@ export default function MediaCover(props) {
         </CardContent>
         <CardActions sx={{marginLeft:15}}>
         <Button size="small" color="primary">
-          <FavoriteBorderIcon></FavoriteBorderIcon>
+          <FavoriteBorderIcon onClick={handleLike}></FavoriteBorderIcon>
+          <Typography sx={{marginLeft:1, marginRight:1}}>{likes}</Typography>
+          <HeartBroken  onClick={handleunLike}></HeartBroken>
         </Button>
       </CardActions>
       </Card>
