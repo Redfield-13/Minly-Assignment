@@ -16,7 +16,7 @@ export default function MediaCover(props) {
   let [liked,setLiked] = useState(false)
   let [unLiked,setUnLiked] = useState(false)
   const [likes, setLikes] = useState(props.likes);
-  const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+  const apiUrl = 'http://localhost:3456/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
   const handleLike = async () => {
       if (liked) {
           setLikes(likes-1)
@@ -69,12 +69,13 @@ export default function MediaCover(props) {
       component="ul"
       sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', p: 0, m: 0 }}
     >
-      <Card component="li" sx={{ boxShadow:10,  margin:'auto', marginTop:5 ,maxWidth: 345, flexGrow: 1 }}>
+      <Card  component="li" sx={{  boxShadow:10,  margin:'auto', marginTop:5 ,maxWidth: 345, flexGrow: 1 }}>
           <video
             autoPlay
             loop
             muted
             poster={props.media}
+            
           >
             <source
               src={props.media}

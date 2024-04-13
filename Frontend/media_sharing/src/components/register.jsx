@@ -14,6 +14,7 @@ import {useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import BasicAlerts from './message';
+import BackgroundImage from '../signBackground.jpg'
 
 function Copyright(props) {
   return (
@@ -37,7 +38,7 @@ export default function SignInSide() {
   const [err,setErr] = useState(false)
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
-    const req_url = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/auth/register'
+    const req_url = 'http://localhost:3456/auth/register'
     const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -87,7 +88,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://replicate.delivery/pbxt/F80Jksfk6K1qOKJWnHD0NVZsSpYw2iY1NtC6CSfBSnCIympSA/output-20240412043651.jpg)',
+            backgroundImage: `url(${BackgroundImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

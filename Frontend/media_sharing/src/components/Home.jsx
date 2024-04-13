@@ -16,7 +16,7 @@ function Home() {
     }
     console.log(user);
     const [posts, setPosts] = useState(null)
-    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages'
+    let postsUrl = 'http://localhost:3456/getImages'
     
     useEffect(()=>{
         fetch(postsUrl).then(res =>{
@@ -33,7 +33,7 @@ function Home() {
         {posts && (
             posts.length > 0 ? (
                 // Check a condition for each post
-                posts.map((post) =>
+                posts.slice().reverse().map((post) =>
                 post.mediaType == "image/jpeg" ? (
                     <Post
                     key={post.id}

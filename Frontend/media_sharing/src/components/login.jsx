@@ -15,6 +15,7 @@ import { useState, createContext, useContext } from "react";
 import UserContex from './Context'
 import { useNavigate } from 'react-router-dom';
 import BasicAlerts from './message';
+import BackgroundImage from '../signBackground.jpg'
 
 
 
@@ -43,7 +44,7 @@ export default function SignInSide() {
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
-    const req_url = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/auth/login'
+    const req_url = 'http://localhost:3456/auth/login'
     const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -83,7 +84,7 @@ export default function SignInSide() {
           sm={4}
           md={8}
           sx={{
-            backgroundImage: 'url(https://replicate.delivery/pbxt/F80Jksfk6K1qOKJWnHD0NVZsSpYw2iY1NtC6CSfBSnCIympSA/output-20240412043651.jpg)',
+            backgroundImage: `url(${BackgroundImage})`,
             //backgroundImage: 'url(https://assets.minly.com/assets/open-graph-tags/share-image-en.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>

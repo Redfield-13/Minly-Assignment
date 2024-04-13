@@ -28,7 +28,7 @@ const URL = '/upload'
 export default function UploadButton() {
   let user = useContext(UserContex);
   const {mutate:mute ,isLoading:uploadinf, error: uploadError} = useMutaion({url: URL})
-  const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/upload/upload?authorID='+user.id+'&author='+user.name
+  const apiUrl = 'http://localhost:3456/upload/upload?authorID='+user.id+'&author='+user.name
   const handleUpload = async (e)=>{
     const file = await e.target.files[0];
     if (file) {
