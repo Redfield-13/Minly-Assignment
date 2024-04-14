@@ -48,7 +48,36 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+//    Ktor
+    implementation("io.ktor:ktor-client-core:2.3.10")
+    implementation("io.ktor:ktor-client-cio:2.3.10")
+    implementation("io.ktor:ktor-client-android:2.3.10")
+    implementation("io.ktor:ktor-client-serialization:2.3.10")
+    implementation("io.ktor:ktor-client-logging:2.3.10")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+
+    implementation("io.ktor:ktor-client-core:2.3.10")
+    implementation("io.ktor:ktor-client-json-jvm:2.3.10")
+    implementation("io.ktor:ktor-client-serialization-jvm:2.3.10")
+
+
+//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-jso:1.3.0")
+
+    implementation("com.google.code.gson:gson:2.8.8")
+
+
+
+
+//    SFJ
+    implementation ("org.slf4j:slf4j-api:1.7.32" )// SLF4J API
+    implementation ("ch.qos.logback:logback-classic:1.2.6")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+
 }

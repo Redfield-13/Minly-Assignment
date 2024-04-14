@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MinlMedia"
 include(":app")
- 
+include(":ApiCalls")

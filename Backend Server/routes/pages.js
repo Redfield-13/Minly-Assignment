@@ -22,10 +22,10 @@ router.get('/getImages', (req,res) =>{
             let authorPosts;
             console.log('Data : ' + results);
             if (authorID) {
-                authorPosts = results.filter((post) => post.author_id === parseInt(authorID))
+                results = results.filter((post) => post.author_id === parseInt(authorID))
             }
             
-            return res.status(200).send({code: 200, Data: results, authorPosts: authorPosts})
+            return res.status(200).send(results)
         }
         
     })

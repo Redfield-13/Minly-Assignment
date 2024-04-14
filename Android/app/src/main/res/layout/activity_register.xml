@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".Register">
 
     <!-- Username EditText -->
 
@@ -20,10 +22,21 @@
     <!-- Password EditText -->
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="150dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/borderbackground"
+        android:hint="Full Name"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/borderbackground"
         android:hint="E-Mail"
@@ -39,6 +52,15 @@
         android:background="@drawable/borderbackground"
         android:paddingLeft="15dp"
         android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Confirm Password"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/borderbackground"
+        android:paddingLeft="15dp"
+        android:inputType="textPassword" />
 
 
     <!-- Login Button -->
@@ -49,6 +71,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:background="@drawable/borderbackground"
-        android:text="Login" />
+        android:text="Register" />
+    
+    
+    <TextView
+        android:textStyle="italic"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/primary_color"
+        android:layout_marginTop="20dp"
+        android:id="@+id/loginNow"
+        android:text="Alredy have an account? Login Now."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
