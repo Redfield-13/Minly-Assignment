@@ -1,5 +1,6 @@
 package com.example.minlmedia
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -64,6 +65,7 @@ suspend fun logInCall(email:String, password:String): UserResponse {
 
 
 class  Login :  AppCompatActivity() {
+     @SuppressLint("ResourceAsColor")
      override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -72,11 +74,6 @@ class  Login :  AppCompatActivity() {
         val password = findViewById<EditText>(R.id.editTextPassword)
         val loginButton = findViewById<Button>(R.id.buttonLogin)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-
-
-
-
-
 
 
         loginButton.setOnClickListener{
@@ -94,15 +91,24 @@ class  Login :  AppCompatActivity() {
                 withContext(Dispatchers.IO){
                     println("Last Log")
                     val resCall = logInCall(emails,userPassword)
-                    println(resCall.name)
-                   Toast.makeText(applicationContext, "Welcome ${resCall.name}", Toast.LENGTH_SHORT)
+                    println("avataaaaaaaaaar "+ resCall.avatar)
+                    if (resCall.code == 200) {
+                        // Create an Intent to start SecondActivity
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        intent.putExtra("avatar", resCall.avatar)
+                        intent.putExtra("userdId", resCall.id)
+                        intent.putExtra("userName", resCall.name)
+
+
+                        println("Redirectttttttttttt")
+                        startActivity(intent)
+                        finish() // Optionally finish the current activity
+                    }
                 }
+
             }
+
         }
 
-//        loginNow.setOnClickListener{
-//           val intent =  Intent(this, Register::class.java)
-//            startActivity(intent)
-//        }
     }
 }

@@ -26,10 +26,11 @@ function Upload() {
     
     useEffect(()=>{
         fetch(postsUrl).then(res =>{
+            console.log("resssssssss "+ res);
             return res.json()
         }).then((data) =>{
-            console.log(data.authorPosts);
-            setPosts(data.authorPosts)
+            console.log(data);
+            setPosts(data)
         })
  
     }, [])

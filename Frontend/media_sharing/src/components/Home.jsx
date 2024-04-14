@@ -22,8 +22,8 @@ function Home() {
         fetch(postsUrl).then(res =>{
             return res.json()
         }).then((data) =>{
-            console.log(data.Data);
-            setPosts(data.Data)
+            console.log(data);
+            setPosts(data)
         })
  
     }, [])

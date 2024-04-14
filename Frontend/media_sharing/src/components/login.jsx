@@ -54,6 +54,7 @@ export default function SignInSide() {
     }
     try{
         const response = await axios.post(req_url,user_data)
+        console.log("rressssssssss"+response);
         console.log(response.data);
         user.avatar = response.data.avatar
         user.id = response.data.id
