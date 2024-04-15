@@ -1,9 +1,9 @@
 import React from 'react'
-import AppBar from './bar'
+import AppBar from '../components/bar'
 import Post from './post'
 import { useState, useEffect, useContext, createContext } from 'react'
-import UserContex from './Context'
-import MediaCover from './videoPost'
+import UserContex from '../components/Context'
+import MediaCover from '../components/videoPost'
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -13,7 +13,7 @@ function Home() {
     let token  = {}
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
-    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages'
+    let postsUrl = 'https://backend-server-22ub.onrender.com/getImages'
 
     useEffect(()=>{
         fetch(postsUrl).then(res =>{

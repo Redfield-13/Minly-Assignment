@@ -1,9 +1,9 @@
 import logo from './logo.png';
 import './App.css';
-import Login from './components/login'
-import Upload from './components/upload'
-import Register from './components/register'
-import Home from './components/Home';
+import Login from './pages/login'
+import Upload from './pages/upload'
+import Register from './pages/register'
+import Home from './pages/Home';
 import{BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import UserContex from '../src/components/Context'
 import { useState } from 'react';

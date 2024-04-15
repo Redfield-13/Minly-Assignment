@@ -1,12 +1,12 @@
 import React from 'react'
-import MenuAppBar from './bar'
+import MenuAppBar from '../components/bar'
 import Grid from '@mui/material/Grid';
-import UploadButton from './uploadButton'
+import UploadButton from '../components/uploadButton'
 import '../App.css'
 import Post from './post'
-import MediaCover from './videoPost';
+import MediaCover from '../components/videoPost';
 import { useState, useEffect, useContext, createContext } from 'react'
-import UserContex from './Context'
+import UserContex from '../components/Context'
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -21,7 +21,7 @@ function Upload() {
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     console.log("upppppppp : " , user.id);
-    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+token.id
+    let postsUrl = 'https://backend-server-22ub.onrender.com/getImages?authorID='+token.id
     
     useEffect(()=>{
       token = JSON.parse(localStorage.getItem("userLogged"))
