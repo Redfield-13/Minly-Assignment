@@ -31,14 +31,9 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 data class UserResponses(
-    val code: Int,
-    val status: String,
     val message: String,
-    val id: Int,
-    val name: String,
-    val avatar: String
 )
-suspend fun signCall(name: String,email:String, password:String, passwordConfirm: String): UserResponse {
+suspend fun signCall(name: String,email:String, password:String, passwordConfirm: String): UserResponses {
 
     val client = HttpClient(CIO)
     val baseUrl = "https://k8fm9r7b-3456.uks1.devtunnels.ms/auth/register"
@@ -54,8 +49,8 @@ suspend fun signCall(name: String,email:String, password:String, passwordConfirm
         )
         val jsonString : String = response.bodyAsText()
         val gson = Gson()
-        val userResponse: UserResponse = gson.fromJson(jsonString, UserResponse::class.java)
-        return(userResponse)
+        val userResponses: UserResponses = gson.fromJson(jsonString, UserResponses::class.java)
+        return(userResponses)
     } catch (e : RedirectResponseException){
         println("Catch1")
         println(e.response.status.description)
@@ -63,7 +58,7 @@ suspend fun signCall(name: String,email:String, password:String, passwordConfirm
         println("Catch2")
         println(e.message)
     }
-    return UserResponse(1,"s","s",2,"s","s")
+    return UserResponses("s")
 }
 
 
@@ -104,17 +99,11 @@ class  Register :  AppCompatActivity() {
 
             lifecycleScope.launch {
                 withContext(Dispatchers.IO){
-                    println("Last Log")
                     val resCall = signCall(userName,emails,userPassword,userConfimrPassword)
-                    println("avataaaaaaaaaar "+ resCall.avatar)
-                    if (resCall.code == 200) {
+                    println("avataaaaaaaaaar "+ resCall)
+                    if (resCall !== null) {
                         // Create an Intent to start SecondActivity
                         val intent = Intent(applicationContext, Login::class.java)
-                        intent.putExtra("avatar", resCall.avatar)
-                        intent.putExtra("userId", resCall.id.toString())
-                        intent.putExtra("userName", resCall.name)
-
-
                         println("Redirectttttttttttt")
                         startActivity(intent)
                         finish() // Optionally finish the current activity
