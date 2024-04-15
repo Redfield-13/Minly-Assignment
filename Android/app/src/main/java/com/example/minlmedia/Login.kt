@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -74,8 +75,13 @@ class  Login :  AppCompatActivity() {
         val password = findViewById<EditText>(R.id.editTextPassword)
         val loginButton = findViewById<Button>(R.id.buttonLogin)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+         val signNav = findViewById<TextView>(R.id.textViewSignUp)
 
-
+        signNav.setOnClickListener{
+            val intent = Intent(applicationContext, Register::class.java)
+            startActivity(intent)
+            finish()
+        }
         loginButton.setOnClickListener{
             progressBar.visibility = View.VISIBLE
             val emails = email.text.toString()
@@ -96,7 +102,7 @@ class  Login :  AppCompatActivity() {
                         // Create an Intent to start SecondActivity
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         intent.putExtra("avatar", resCall.avatar)
-                        intent.putExtra("userdId", resCall.id)
+                        intent.putExtra("userId", resCall.id.toString())
                         intent.putExtra("userName", resCall.name)
 
 

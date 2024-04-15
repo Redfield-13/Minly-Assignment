@@ -3,6 +3,7 @@ package com.example.minlmedia
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -82,10 +83,10 @@ class CardAdapter(private val items: List<Item>) :
     }
 }
 
-suspend fun getImages() : List<Item> {
+suspend fun getImages(url : String) : List<Item> {
 
     val client = HttpClient(CIO)
-    val baseUrl = "https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages"
+    val baseUrl = url
     try {
         val response: HttpResponse = client.request(baseUrl) {
             method = HttpMethod.Get
@@ -106,18 +107,7 @@ suspend fun getImages() : List<Item> {
     return(emptyList())
 }
 
-suspend fun fetchData(): List<Item> {
-    return try {
-        val response = getImages()
-        if (response.size > 0) {
-            return(response)
-        } else {
-            emptyList()
-        }
-    } catch (e: Exception) {
-        emptyList()
-    }
-}
+
 
 
 
@@ -132,7 +122,7 @@ class HomeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val data = getImages() // Suspended API call
+                val data = getImages("https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages") // Suspended API call
                 val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
                 recyclerView.layoutManager = LinearLayoutManager(this@HomeActivity)
                 val adapter = CardAdapter(data.reversed())
@@ -152,6 +142,7 @@ class HomeActivity : AppCompatActivity() {
 
         val receivedAvatar = intent.getStringExtra("avatar")
         val receivedId = intent.getStringExtra("userId")
+        println("hoooooooommmmmmmmmmmmmeeeeeee id" + receivedId)
         val receivedName = intent.getStringExtra("userName")
 
         val avatarWidget : ImageView = findViewById(R.id.avatarImageView)
@@ -169,11 +160,17 @@ class HomeActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.menu_home -> {
-                    // Handle Home menu item click
+
                     true
                 }
                 R.id.menu_uploads -> {
-                    // Handle Uploads menu item click
+                    val intent = Intent(applicationContext, UploadActivity::class.java)
+                    intent.putExtra("avatar", receivedAvatar)
+                    intent.putExtra("uploadId", receivedId)
+
+                    println("RedirecttttttttttttUplooooooooooad")
+                    startActivity(intent)
+                    finish() // Optionally finish the current activity
                     true
                 }
                 else -> false

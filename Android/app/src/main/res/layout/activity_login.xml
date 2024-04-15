@@ -55,7 +55,7 @@
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/buttonback"
         android:shadowColor="#451616"
         android:text="Login"
@@ -65,16 +65,16 @@
         app:strokeColor="#FFFFFF" />
 
 
-
-<!--    <TextView-->
-<!--        android:textStyle="italic"-->
-<!--        android:textSize="15sp"-->
-<!--        android:gravity="center"-->
-<!--        android:textColor="@color/primary_color"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:id="@+id/loginNow"-->
-<!--        android:text="Don't have an account? SignIn Now."-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="onSignUpClick"
+        android:text="Don't have an account? Sign Up Now."
+        android:textColor="#0000FF"
+        android:layout_marginBottom="100dp"
+        android:textStyle="italic" />
 
 </LinearLayout>

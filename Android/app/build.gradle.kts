@@ -61,7 +61,6 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:2.3.10")
     implementation("ch.qos.logback:logback-classic:1.2.3")
 
-    implementation("io.ktor:ktor-client-core:2.3.10")
     implementation("io.ktor:ktor-client-json-jvm:2.3.10")
     implementation("io.ktor:ktor-client-serialization-jvm:2.3.10")
 
@@ -82,6 +81,15 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
 
     implementation ("com.google.android.material:material:1.2.1")
+
+    implementation ("androidx.compose.ui:ui:1.0.5")
+    implementation ("androidx.activity:activity-compose:1.3.1")
+    implementation ("androidx.compose.material:material:1.0.5")
+    implementation ("androidx.activity:activity:1.3.1")
+    implementation("io.ktor:ktor-client-json:2.3.10")
+
+
+
 
 
 //    SFJ
