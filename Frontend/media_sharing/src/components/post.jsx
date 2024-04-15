@@ -7,7 +7,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartBroken from '@mui/icons-material/HeartBroken';
 import axios from 'axios';
-import UserContex from '../components/Context'
+import UserContex from './Context'
 import { useState , useEffect, useContext } from 'react';
 
 export default function MultiActionAreaCard(props) {

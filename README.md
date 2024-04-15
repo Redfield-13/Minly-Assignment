@@ -52,7 +52,7 @@ Choose your client. For the web app
 
 Server : https://backend-server-22ub.onrender.com
 
-Client : https://k8fm9r7b-3000.uks1.devtunnels.ms/
+Client : https://minlymedia.netlify.app
  
 ## Database config
 
