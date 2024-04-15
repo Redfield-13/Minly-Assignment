@@ -13,65 +13,17 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.kotlinx.serializer.KotlinxSerializer
-import io.ktor.client.request.forms.formData
-import io.ktor.client.request.forms.submitFormWithBinaryData
-import io.ktor.client.request.post
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
-import io.ktor.client.utils.EmptyContent.headers
-import io.ktor.http.ContentType
-import io.ktor.http.Headers
-import io.ktor.http.HttpHeaders
-import io.ktor.http.content.PartData
-import io.ktor.http.headers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.Serializable
-
-
-
-
-suspend fun upload(path: String?) {
-    val client = HttpClient(CIO)
-
-
-    val response: HttpResponse = client.submitFormWithBinaryData(
-        url = "https://k8fm9r7b-3456.uks1.devtunnels.ms/upload/upload?authorID=1&author=Mojtaba",
-        formData = formData {
-            append("name", "portsudna")
-            append("image", File(path).readBytes(), Headers.build {
-                append(HttpHeaders.ContentType, "image/png")
-                append(HttpHeaders.ContentDisposition, "filename=\"ktor_logo.png\"")
-            })
-        }
-    )
-    println("whhhhhhhhhhhhhhhhhhhhhhhh")
-    val jsonString : String = response.bodyAsText()
-    val gson = Gson()
-    println(jsonString)
-
-}
 
 
 
@@ -96,40 +48,17 @@ class UploadActivity : AppCompatActivity() {
         uploadButto = findViewById(R.id.uploadButton)
         imageViewTest = findViewById(R.id.testImage)
 
-
-//        ------------------------------------- Grant Permissions -------------------------------
-
-
-
-
-        //        --------------------------------------------------------------        ------------------------------
-//
-//
-//        -------------------------------------------------------- Image Upload -----------------------------------
-
-
-
         uploadButto.setOnClickListener{
             lifecycleScope.launch {
                 withContext(Dispatchers.IO){
                     pickImageGallerty()
                     println("uploooooooooad")
-//                    upload()
                 }
             }
         }
 
-//        Open Studio
-
-
-        //        --------------------------------------------------------------        ------------------------------
-//
-//
-//        -------------------------------------------------------- Image Upload -----------------------------------
-
         val uploadAvatar = intent.getStringExtra("avatar")
         val uploadId = intent.getStringExtra("uploadId")
-        println("looooooooooadddddddsssssssssss : "+uploadId)
         lifecycleScope.launch {
             try {
                 val data = getImages("https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID=$uploadId")
@@ -139,7 +68,6 @@ class UploadActivity : AppCompatActivity() {
                 val adapter = CardAdapter(data.reversed())
                 recyclerView.adapter = adapter
             } catch (e: Exception) {
-                // Handle API call error
                 Log.e("API_CALL", "Error fetching data: ${e.message}")
             }
 
