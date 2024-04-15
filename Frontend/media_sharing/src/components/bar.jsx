@@ -38,7 +38,7 @@ function ResponsiveAppBar(props) {
     setAnchorElUser(null);
   };
   const navigate = useNavigate()
-  const pages = ['Home','upload'];
+  const pages = ['Home','uploads'];
   const settings = ['Profile', 'Logout'];
 
 

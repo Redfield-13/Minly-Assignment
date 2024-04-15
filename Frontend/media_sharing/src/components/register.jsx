@@ -15,6 +15,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import BasicAlerts from './message';
 import BackgroundImage from '../signBackground.jpg'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Copyright(props) {
   return (
@@ -59,7 +61,8 @@ export default function SignInSide() {
     }
     if (user_data.name == '' || user_data.email == '' || user_data.password =='' || user_data.passwordConfim == '') {
       setMessage('Fields Can Not Be Empty')
-      setErr(true)
+      toast.error('Fields Can Not Be Empty')
+
       return null
     }
     try{
@@ -71,15 +74,13 @@ export default function SignInSide() {
         console.log(error);
         setErr(true)
         setMessage(error.response.data.message)
+        toast.error(error.response.data.message)
     }
   };
   
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      {err && (
-        <BasicAlerts message = {message}></BasicAlerts>
-      )}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -173,6 +174,7 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

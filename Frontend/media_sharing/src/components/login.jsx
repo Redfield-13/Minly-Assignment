@@ -16,6 +16,8 @@ import UserContex from './Context'
 import { useNavigate } from 'react-router-dom';
 import BasicAlerts from './message';
 import BackgroundImage from '../signBackground.jpg'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -66,6 +68,7 @@ export default function SignInSide() {
         console.log(error.response.data.message);
         setErr(true)
         setMessage(error.response.data.message)
+        toast.error(error.response.data.message)
     }
   };
 
@@ -74,9 +77,6 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      {err && (
-        <BasicAlerts message = {message}></BasicAlerts>
-      )}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -160,6 +160,7 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
