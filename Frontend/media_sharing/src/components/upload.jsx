@@ -21,7 +21,7 @@ function Upload() {
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     console.log("upppppppp : " , user.id);
-    let postsUrl = 'http://localhost:3456/getImages?authorID='+token.id
+    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+token.id
     
     useEffect(()=>{
       token = JSON.parse(localStorage.getItem("userLogged"))
