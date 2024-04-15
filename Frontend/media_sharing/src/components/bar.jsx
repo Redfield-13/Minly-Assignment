@@ -22,6 +22,9 @@ import { useNavigate } from 'react-router-dom';
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
+  const pages = ['Home','uploads'];
+  const settings = ['Profile', 'Logout'];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,9 +40,17 @@ function ResponsiveAppBar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const navigate = useNavigate()
-  const pages = ['Home','uploads'];
-  const settings = ['Profile', 'Logout'];
+  const handelAvatarClick = (setting) =>{
+    if (setting == "Profile") {
+      console.log("prrrrrroooooooooof");
+      navigate('/uploads')
+    }else{
+      console.log("loooooooooooog");
+      localStorage.removeItem("userLogged")
+      navigate('/login')
+    }
+  }
+
 
 
   return (
@@ -161,7 +172,7 @@ function ResponsiveAppBar(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handelAvatarClick(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

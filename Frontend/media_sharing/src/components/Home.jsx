@@ -8,25 +8,39 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
+    const {user , setUser} = useContext(UserContex)
     const navigate = useNavigate()
-
-    let user = useContext(UserContex);
-    if (user.id == 0) {
-        navigate('/login')
-    }
-    console.log(user);
+    let token  = {}
+    console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     let postsUrl = 'http://localhost:3456/getImages'
-    
+
     useEffect(()=>{
         fetch(postsUrl).then(res =>{
             return res.json()
         }).then((data) =>{
-            console.log(data);
             setPosts(data)
         })
- 
+        token = JSON.parse(localStorage.getItem("userLogged"))
+        console.log("toooooooooook",token);
+        if (token !== null) {
+            setUser(token)
+            console.log(setUser);
+            setUser(token)
+            console.log(user.id);
+        }
+        if (token == null) {
+            navigate('/login')
+        }
+        
+        if (user.id == 0) {
+            console.log("heeeeeeeeeey")
+            navigate('/login')
+        }
     }, [])
+  
+    
+    
   return (
     <div>
         <AppBar avatar = {user.avatar}></AppBar>

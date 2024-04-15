@@ -22,6 +22,11 @@ export default function MultiActionAreaCard(props) {
         if (liked) {
             setLikes(likes-1)
             setLiked(false)
+        if (unLiked && !liked) {
+          setLikes(likes + 2)
+          setLiked(true)
+          setUnLiked(false)
+        }
         }else{
             try {
                 // Make an API request to update the likes count on the server
@@ -32,8 +37,11 @@ export default function MultiActionAreaCard(props) {
                 });
                 
                 // If the API request is successful, update the likes count in the client
-                setLikes(likes + 1);
-                setLiked(true)
+                if (!liked) {
+                  setLikes(likes + 1);
+                  setLiked(true)
+                }
+                
               } catch (error) {
                 console.error(error);
               }
@@ -44,6 +52,11 @@ export default function MultiActionAreaCard(props) {
         if (unLiked) {
             setLikes(likes + 1)
             setUnLiked(false)
+        }
+        if (liked && !unLiked) {
+          setLikes(likes - 2)
+          setLiked(false)
+          setUnLiked(true)
         }
         else{
           try {
@@ -56,8 +69,11 @@ export default function MultiActionAreaCard(props) {
       
       
             // If the API request is successful, update the likes count in the client
-            setLikes(likes - 1);
+            if (!unLiked) {
+              setLikes(likes - 1);
             setUnLiked(true)
+            }
+            
           } catch (error) {
             console.error(error);
           }

@@ -1,6 +1,8 @@
 const data_base = require('../configs/databaseConfig')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const dotenv = require('dotenv').config()
+
 
 
 
@@ -75,16 +77,14 @@ exports.login = async (req,res) =>{
                 return res.status(402).send({code:402, status:"error", message:"Incorrect Email or Password"})
             }
             else{
-                // const token = jwt.sign({id:result[0].id}, process.env.JWT_SECRET, {
-                //     expiresIn: process.env.JWT_SECRET
-                // })
-                // const cookiOption = {
-                //     expiresIn:new Date(Date.now()+process.env.COOKIE_EXPIRS *24*60*60*1000),
-                //     httpOnly: true
-                // }
-                // res.cookie("userRegistered",token,cookiOption)
+                const token = jwt.sign({id:result[0].ID, avatar: result[0].avatar, name: result[0].name}, "562789DHB_(8920HD%27", {expiresIn: "1h"})
+               
+                res.cookie("userRegistered",token,{
+                    httpOnly: true,
+                    expiresIn: 5000000
+                })
                 console.log({code:200, status:"Success", message:"Login Completed"});
-                return res.status(200).send({code:200, status:"Success", message:"Login Completed", id: result[0].ID , name: result[0].name, avatar: result[0].avatar})
+                return res.status(200).send({code:200, status:"Success", message:"Login Completed", id: result[0].ID , name: result[0].name, avatar: result[0].avatar, token: token})
             }
         })
     }

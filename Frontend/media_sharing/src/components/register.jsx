@@ -69,7 +69,8 @@ export default function SignInSide() {
         const response = await axios.post(req_url,user_data)
         console.log(response.data);
         setErr(false)
-        navigate('/')
+        toast.success("User successfully registerd. You can Login now!")
+        setTimeout(() => {navigate('/');}, 1500);
     } catch(error){
         console.log(error);
         setErr(true)

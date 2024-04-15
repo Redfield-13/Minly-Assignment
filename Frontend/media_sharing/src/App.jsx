@@ -9,14 +9,11 @@ import UserContex from '../src/components/Context'
 import { useState } from 'react';
 
 function App() {
-  const [userContext, setUserContext] = useState({
-    avatar: '',
-    id: 0,
-    name:'',
-});
+  const [user, setUser] = useState({});
+  const value = {user, setUser}
   return (
 
-      <UserContex.Provider value={userContext}>
+      <UserContex.Provider value={value}>
         <Router>
           <Routes>
               <Route path='/' element={<Login></Login>}></Route>

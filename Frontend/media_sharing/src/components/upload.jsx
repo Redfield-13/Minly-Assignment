@@ -14,25 +14,32 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 function Upload() {
-  let user = useContext(UserContex);
-  const navigate = useNavigate()
+  const {user , setUser} = useContext(UserContex)
+    const navigate = useNavigate()
+    let token  = {}
 
-    console.log(user);
-    if (user.id == 0) {
-      navigate('/login')
-  }
+    console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     let postsUrl = 'http://localhost:3456/getImages?authorID='+user.id
     
     useEffect(()=>{
         fetch(postsUrl).then(res =>{
-            console.log("resssssssss "+ res);
             return res.json()
         }).then((data) =>{
-            console.log(data);
             setPosts(data)
         })
- 
+        token = JSON.parse(localStorage.getItem("userLogged"))
+        if (token !== null) {
+          setUser(token)
+          console.log(setUser);
+          setUser(token)
+          console.log(user.id);
+        }
+        
+        if (user.id == 0) {
+            console.log("heeeeeeeeeey")
+            navigate('/login')
+        }
     }, [])
 
 
