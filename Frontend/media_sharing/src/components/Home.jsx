@@ -13,7 +13,7 @@ function Home() {
     let token  = {}
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
-    let postsUrl = 'http://localhost:3456/getImages'
+    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages'
 
     useEffect(()=>{
         fetch(postsUrl).then(res =>{

@@ -40,7 +40,7 @@ export default function SignInSide() {
   const [err,setErr] = useState(false)
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
-    const req_url = 'http://localhost:3456/auth/register'
+    const req_url = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/auth/register'
     const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

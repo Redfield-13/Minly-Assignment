@@ -17,24 +17,27 @@ function Upload() {
   const {user , setUser} = useContext(UserContex)
     const navigate = useNavigate()
     let token  = {}
-
+    token = JSON.parse(localStorage.getItem("userLogged"))
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
-    let postsUrl = 'http://localhost:3456/getImages?authorID='+user.id
+    console.log("upppppppp : " , user.id);
+    let postsUrl = 'http://localhost:3456/getImages?authorID='+token.id
     
     useEffect(()=>{
+      token = JSON.parse(localStorage.getItem("userLogged"))
+      if (token !== null) {
+        setUser(token)
+        console.log(setUser);
+        setUser(token)
+        console.log(user.id);
+      }
         fetch(postsUrl).then(res =>{
             return res.json()
         }).then((data) =>{
             setPosts(data)
         })
-        token = JSON.parse(localStorage.getItem("userLogged"))
-        if (token !== null) {
-          setUser(token)
-          console.log(setUser);
-          setUser(token)
-          console.log(user.id);
-        }
+        
+        
         
         if (user.id == 0) {
             console.log("heeeeeeeeeey")

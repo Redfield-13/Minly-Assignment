@@ -17,7 +17,7 @@ export default function MultiActionAreaCard(props) {
     let [liked,setLiked] = useState(false)
     let [unLiked,setUnLiked] = useState(false)
     const [likes, setLikes] = useState(props.likes);
-    const apiUrl = 'http://localhost:3456/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+    const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
     const handleLike = async () => {
         if (liked) {
             setLikes(likes-1)
