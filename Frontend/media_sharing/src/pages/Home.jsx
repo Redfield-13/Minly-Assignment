@@ -1,6 +1,6 @@
 import React from 'react'
 import AppBar from '../components/bar'
-import Post from './post'
+import Post from '../components/post'
 import { useState, useEffect, useContext, createContext } from 'react'
 import UserContex from '../components/Context'
 import MediaCover from '../components/videoPost'
