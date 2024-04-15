@@ -14,11 +14,9 @@ import axios  from 'axios';
 import { useState, createContext, useContext } from "react";
 import UserContex from './Context'
 import { useNavigate } from 'react-router-dom';
-import BasicAlerts from './message';
 import BackgroundImage from '../signBackground.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Audio , ThreeCircles } from 'react-loader-spinner'
 
 
 
