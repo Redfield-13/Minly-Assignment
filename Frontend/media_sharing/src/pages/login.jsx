@@ -44,7 +44,7 @@ export default function SignInSide() {
   const [err,setErr] = useState(false)
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
-  
+  const toastId = React.useRef(null);
 
     const req_url = 'https://backend-server-22ub.onrender.com/auth/login'
     const handleSubmit = async (event) => {
@@ -55,6 +55,7 @@ export default function SignInSide() {
         password: data.get('password')
     }
     try{
+      console.log("fgshjk");
         toast.info('Loggin You In.....')
         const response = await axios.post(req_url,user_data)
         user.avatar = response.data.avatar
@@ -64,6 +65,7 @@ export default function SignInSide() {
         setErr(false)
         navigate('/home')    
     } catch(error){
+      toast.dismiss()
         console.log(error.response.data.message);
         setErr(true)
         setMessage(error.response.data.message)

@@ -3,7 +3,7 @@ import MenuAppBar from '../components/bar'
 import Grid from '@mui/material/Grid';
 import UploadButton from '../components/uploadButton'
 import '../App.css'
-import Post from './post'
+import Post from '../components/post'
 import MediaCover from '../components/videoPost';
 import { useState, useEffect, useContext, createContext } from 'react'
 import UserContex from '../components/Context'
@@ -76,11 +76,12 @@ function Upload() {
                 width: '100%',
                 maxWidth: 500,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-                gap: 2,
+                gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                margin:'auto',
+                textAlign:'center'
               }}>
                 <Card variant="soft" sx={{margin:'auto'}}>
-                <CardContent>
+                <CardContent sx={{margin:'auto'}}>
                     <Typography level="title-md" textColor="inherit">
                       NO Posts From You!
                     </Typography>
