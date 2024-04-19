@@ -6,18 +6,20 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartBroken from '@mui/icons-material/HeartBroken';
+import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import UserContex from './Context'
+import { toast } from 'react-toastify';
 import { useState , useEffect, useContext } from 'react';
 
 export default function MultiActionAreaCard(props) {
-
-
+  console.log(props);
     let user = useContext(UserContex);
     let [liked,setLiked] = useState(false)
     let [unLiked,setUnLiked] = useState(false)
     const [likes, setLikes] = useState(props.likes);
-    const apiUrl = 'https://backend-server-22ub.onrender.com/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+    const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+    const delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
     const handleLike = async () => {
         if (liked) {
             setLikes(likes-1)
@@ -82,6 +84,22 @@ export default function MultiActionAreaCard(props) {
       };
 
 
+      const handleDelete = async ()=>{
+        
+        try{
+          const response = await axios.post(delUrl+props.id,{
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          console.log(response);
+          toast.info('Media Was Deleted Successfully. Refresh The Page')
+        }catch(error){
+          console.log(error);
+        }
+      }
+
+
   return (
     <Card sx={{ maxWidth: 345, margin:'auto', marginTop: 5, boxShadow:10}}>
       <CardActionArea>
@@ -103,7 +121,13 @@ export default function MultiActionAreaCard(props) {
           <Typography sx={{marginLeft:1, marginRight:1}}>{likes}</Typography>
           <HeartBroken onClick={handleunLike}></HeartBroken>
         </Button>
+        
       </CardActions>
+      {props.uploadpage == true && (
+              <Button sx={{marginLeft:17.2}} size="small" color="error">
+                <DeleteIcon onClick={handleDelete}></DeleteIcon>
+              </Button>
+            )}
     </Card>
   );
 }

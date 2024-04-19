@@ -21,7 +21,7 @@ function Upload() {
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     console.log("upppppppp : " , user.id);
-    let postsUrl = 'https://backend-server-22ub.onrender.com/getImages?authorID='+token.id
+    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+token.id
     
     useEffect(()=>{
       token = JSON.parse(localStorage.getItem("userLogged"))
@@ -35,10 +35,7 @@ function Upload() {
             return res.json()
         }).then((data) =>{
             setPosts(data)
-        })
-        
-        
-        
+        })       
         if (user.id == 0) {
             console.log("heeeeeeeeeey")
             navigate('/login')
@@ -61,6 +58,8 @@ function Upload() {
                     image={post.file_link}
                     author={post.author}
                     likes={post.likes}
+                    uploadpage={true}
+                    id={post.id}
                     />
                 ) : (
                     <MediaCover
@@ -68,6 +67,8 @@ function Upload() {
                     media={post.file_link}
                     author={post.author}
                     likes={post.likes}
+                    uploadpage={true}
+                    id={post.id}
                     />
                 )
                 )

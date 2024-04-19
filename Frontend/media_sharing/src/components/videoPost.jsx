@@ -6,9 +6,12 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartBroken from '@mui/icons-material/HeartBroken';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import UserContex from './Context'
+
 
 export default function MediaCover(props) {
 
@@ -16,27 +19,27 @@ export default function MediaCover(props) {
   let [liked,setLiked] = useState(false)
   let [unLiked,setUnLiked] = useState(false)
   const [likes, setLikes] = useState(props.likes);
-  const apiUrl = 'https://backend-server-22ub.onrender.com/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+  const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
+  let delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
   const handleLike = async () => {
       if (liked) {
           setLikes(likes-1)
           setLiked(false)
       }else{
           try {
-              // Make an API request to update the likes count on the server
               const response = await axios.post(apiUrl+'like', {
                 headers: {
                   'Content-Type': 'application/json'
                 }
               });
               
-              // If the API request is successful, update the likes count in the client
               setLikes(likes + 1);
               setLiked(true)
             } catch (error) {
               console.error(error);
             }
       }
+  
     
   };
   const handleunLike = async () => {
@@ -64,16 +67,30 @@ export default function MediaCover(props) {
       
     };
 
+    const handleDelete = async ()=>{
+      try{
+        const response = await axios.post(delUrl+props.id,{
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        console.log(response);
+        toast.info('Media Was Deleted Successfully. Refresh The Page')
+      }catch(error){
+        console.log(error);
+      }
+    }
+
   return (
     <Box
       component="ul"
       sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', p: 0, m: 0 }}
     >
       <Card  component="li" sx={{  boxShadow:10,  margin:'auto', marginTop:5 ,maxWidth: 345, flexGrow: 1 }}>
-          <video
-            autoPlay
-            loop
-            muted
+          <video  
+            loop       
+            controls
+            width={345}
             poster={props.media}
             
           >
@@ -94,6 +111,11 @@ export default function MediaCover(props) {
           <HeartBroken  onClick={handleunLike}></HeartBroken>
         </Button>
       </CardActions>
+      {props.uploadpage == true && (
+              <Button sx={{marginLeft:17.2}} size="small" color="error">
+                <DeleteIcon onClick={handleDelete}></DeleteIcon>
+              </Button>
+            )}
       </Card>
     </Box>
   );

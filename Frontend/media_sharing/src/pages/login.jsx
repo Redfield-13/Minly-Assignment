@@ -46,7 +46,7 @@ export default function SignInSide() {
   const navigate = useNavigate()
   const toastId = React.useRef(null);
 
-    const req_url = 'https://backend-server-22ub.onrender.com/auth/login'
+    const req_url = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/auth/login'
     const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -87,7 +87,6 @@ export default function SignInSide() {
           md={8}
           sx={{
             backgroundImage: `url(${BackgroundImage})`,
-            //backgroundImage: 'url(https://assets.minly.com/assets/open-graph-tags/share-image-en.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -151,7 +150,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/register" variant="body2">
+                  <Link href="/#register" variant="body2">
                     {"Don't have an account? Register"}
                   </Link>
                 </Grid>

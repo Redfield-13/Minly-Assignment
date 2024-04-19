@@ -32,7 +32,7 @@ export default function UploadButton() {
   const {user , setUser} = useContext(UserContex)
   const [isLoading, setIsLoading] = useState(false)
   const {mutate:mute ,isLoading:uploadinf, error: uploadError} = useMutaion({url: URL})
-  const apiUrl = 'https://backend-server-22ub.onrender.com/upload/upload?authorID='+user.id+'&author='+user.name
+  const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/upload/upload?authorID='+user.id+'&author='+user.name
   const handleUpload = async (e)=>{
     setIsLoading(true)
     const file = await e.target.files[0];
