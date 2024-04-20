@@ -46,7 +46,6 @@ function Home() {
         <AppBar avatar = {user.avatar}></AppBar>
         {posts && (
             posts.length > 0 ? (
-                // Check a condition for each post
                 posts.slice().reverse().map((post) =>
                 post.mediaType == "image/jpeg" ? (
                     <Post
@@ -55,6 +54,7 @@ function Home() {
                     author={post.author}
                     likes={post.likes}
                     id={post.id}
+                    authorId={post.author_id}
                     />
                 ) : (
                     <MediaCover
@@ -63,6 +63,7 @@ function Home() {
                     author={post.author}
                     likes={post.likes}
                     id={post.id}
+                    authorId={post.author_id}
                     />
                 )
                 )

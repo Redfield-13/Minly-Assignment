@@ -11,6 +11,7 @@ import axios from 'axios';
 import UserContex from './Context'
 import { toast } from 'react-toastify';
 import { useState , useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function MultiActionAreaCard(props) {
   console.log(props);
@@ -31,14 +32,11 @@ export default function MultiActionAreaCard(props) {
         }
         }else{
             try {
-                // Make an API request to update the likes count on the server
                 const response = await axios.post(apiUrl+'like', {
                   headers: {
                     'Content-Type': 'application/json'
                   }
                 });
-                
-                // If the API request is successful, update the likes count in the client
                 if (!liked) {
                   setLikes(likes + 1);
                   setLiked(true)
@@ -48,8 +46,8 @@ export default function MultiActionAreaCard(props) {
                 console.error(error);
               }
         }
-      
     };
+
     const handleunLike = async () => {
         if (unLiked) {
             setLikes(likes + 1)
@@ -62,15 +60,11 @@ export default function MultiActionAreaCard(props) {
         }
         else{
           try {
-            // Make an API request to update the likes count on the server
             const response = await axios.post(apiUrl+'unlike', {
               headers: {
                 'Content-Type': 'application/json'
               }
             });
-      
-      
-            // If the API request is successful, update the likes count in the client
             if (!unLiked) {
               setLikes(likes - 1);
             setUnLiked(true)
@@ -109,11 +103,13 @@ export default function MultiActionAreaCard(props) {
           image={props.image}
           alt="green iguana"
         />
-        <CardContent sx={{marginLeft:4}}>
-          <Typography gutterBottom variant="h5" component="div">
-             Posted By : {props.author}
-          </Typography>
-        </CardContent>
+        <Link to={`/profile/${props.authorId}`} style={{ textDecoration: 'none', color: 'inherit', margin:'auto' }}>
+          <CardContent sx={{marginLeft:4}}>
+            <Typography onClick={() => {console.log(props.authorId);}} gutterBottom variant="h5" component="div">
+              Posted By: {props.author}
+            </Typography>
+          </CardContent>
+        </Link>
       </CardActionArea>
       <CardActions sx={{marginLeft:15}}>
         <Button size="small" color="primary">

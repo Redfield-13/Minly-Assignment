@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import UserContex from './Context'
+import { Link } from 'react-router-dom';
 
 
 export default function MediaCover(props) {
@@ -39,8 +40,6 @@ export default function MediaCover(props) {
               console.error(error);
             }
       }
-  
-    
   };
   const handleunLike = async () => {
       if (unLiked) {
@@ -49,15 +48,12 @@ export default function MediaCover(props) {
       }
       else{
         try {
-          // Make an API request to update the likes count on the server
           const response = await axios.post(apiUrl+'unlike', {
             headers: {
               'Content-Type': 'application/json'
             }
           });
-    
-    
-          // If the API request is successful, update the likes count in the client
+
           setLikes(likes - 1);
           setUnLiked(true)
         } catch (error) {
@@ -92,18 +88,19 @@ export default function MediaCover(props) {
             controls
             width={345}
             poster={props.media}
-            
           >
             <source
               src={props.media}
               type="video/mp4"
             />
           </video>
-          <CardContent sx={{marginLeft:4}}>
-          <Typography gutterBottom variant="h5" component="div">
-             Posted By : {props.author}
-          </Typography>
-        </CardContent>
+          <Link to={`/profile/${props.authorId}`} style={{ textDecoration: 'none', color: 'inherit', margin:'auto' }}>
+            <CardContent sx={{marginLeft:4}}>
+              <Typography onClick={() => {console.log(props.authorId);}} gutterBottom variant="h5" component="div">
+                Posted By: {props.author}
+              </Typography>
+            </CardContent>
+        </Link>
         <CardActions sx={{marginLeft:15}}>
         <Button size="small" color="primary">
           <FavoriteBorderIcon onClick={handleLike}></FavoriteBorderIcon>

@@ -4,6 +4,7 @@ import Login from './pages/login'
 import Upload from './pages/upload'
 import Register from './pages/register'
 import Home from './pages/Home';
+import Profile from './pages/profile'
 import{BrowserRouter as Router,Routes,Route, HashRouter } from 'react-router-dom'
 import UserContex from '../src/components/Context'
 import { useState } from 'react';
@@ -21,6 +22,7 @@ function App() {
               <Route path='/register' element={<Register></Register>}></Route>
               <Route path='/uploads' element={<Upload></Upload>}></Route>
               <Route path='/home' element={<Home></Home>}></Route>
+              <Route path='/profile/:authorId'   element={<Profile></Profile>}></Route>
           </Routes>
        </HashRouter>
       </UserContex.Provider>

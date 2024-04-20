@@ -1,19 +1,24 @@
 import React from 'react'
 import MenuAppBar from '../components/bar'
 import Grid from '@mui/material/Grid';
-import UploadButton from '../components/uploadButton'
 import '../App.css'
 import Post from '../components/post'
 import MediaCover from '../components/videoPost';
-import { useState, useEffect, useContext, createContext } from 'react'
+import { useState, useEffect, useContext} from 'react'
 import UserContex from '../components/Context'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-function Upload() {
+function Profile(props) {
+
+  // const authorId = props.params.authorId;
+  
+  const params = useParams()
+  console.log('proooooops : ' +  params);
+
   const {user , setUser} = useContext(UserContex)
     const navigate = useNavigate()
     let token  = {}
@@ -21,7 +26,7 @@ function Upload() {
     console.log("yessssssssi :"+JSON.stringify(user));
     const [posts, setPosts] = useState(null)
     console.log("upppppppp : " , user.id);
-    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+token.id
+    let postsUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/getImages?authorID='+params.authorId
     
     useEffect(()=>{
       token = JSON.parse(localStorage.getItem("userLogged"))
@@ -45,8 +50,7 @@ function Upload() {
 
   return (
     <Grid container direction="column" spacing={2}>
-        <Grid item xs={6} alignItems="center"> <MenuAppBar avatar = {user.avatar}></MenuAppBar> </Grid>
-        <Grid item alignContent="center"> <UploadButton ></UploadButton> </Grid>
+        <Grid item xs={6} alignItems="center"> <MenuAppBar avatar = {user.avatar}></MenuAppBar></Grid>
         <Grid item alignContent="center">
         {posts && (
             posts.length > 0 ? (
@@ -57,7 +61,6 @@ function Upload() {
                     image={post.file_link}
                     author={post.author}
                     likes={post.likes}
-                    uploadpage={true}
                     id={post.id}
                     />
                 ) : (
@@ -66,7 +69,6 @@ function Upload() {
                     media={post.file_link}
                     author={post.author}
                     likes={post.likes}
-                    uploadpage={true}
                     id={post.id}
                     />
                 )
@@ -83,7 +85,7 @@ function Upload() {
                 <Card variant="soft" sx={{margin:'auto'}}>
                 <CardContent sx={{margin:'auto'}}>
                     <Typography level="title-md" textColor="inherit">
-                      NO Posts From You!
+                      NO Posts From This User!
                     </Typography>
                     <Typography textColor="inherit">Try to post something. Use The Button Above.</Typography>
               </CardContent>  
@@ -98,4 +100,4 @@ function Upload() {
   )
 }
 
-export default Upload
+export default Profile
