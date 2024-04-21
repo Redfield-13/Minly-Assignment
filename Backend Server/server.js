@@ -12,6 +12,7 @@ const app = express()
 app.use(cors())
 
 
+
 const publicDirectory = path.join(__dirname,)
 app.use(express.static(publicDirectory))
 

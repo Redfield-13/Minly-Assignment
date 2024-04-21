@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartBroken from '@mui/icons-material/HeartBroken';
+import Heart from "react-animated-heart";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -17,12 +18,14 @@ import { Link } from 'react-router-dom';
 export default function MediaCover(props) {
 
   let user = useContext(UserContex);
+  const [isClick, setClick] = useState(false);
   let [liked,setLiked] = useState(false)
   let [unLiked,setUnLiked] = useState(false)
   const [likes, setLikes] = useState(props.likes);
   const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
   let delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
   const handleLike = async () => {
+    setClick(!isClick)
       if (liked) {
           setLikes(likes-1)
           setLiked(false)
@@ -101,11 +104,11 @@ export default function MediaCover(props) {
               </Typography>
             </CardContent>
         </Link>
-        <CardActions sx={{marginLeft:15}}>
+        <CardActions sx={{marginLeft:10}}>
         <Button size="small" color="primary">
-          <FavoriteBorderIcon onClick={handleLike}></FavoriteBorderIcon>
-          <Typography sx={{marginLeft:1, marginRight:1}}>{likes}</Typography>
-          <HeartBroken  onClick={handleunLike}></HeartBroken>
+        <Heart  isClick={isClick} onClick={handleLike} />
+          <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>
+          {/* <HeartBroken onClick={handleunLike}></HeartBroken> */}
         </Button>
       </CardActions>
       {props.uploadpage == true && (

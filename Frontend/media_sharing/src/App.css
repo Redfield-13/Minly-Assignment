@@ -50,3 +50,28 @@
   gap: 50px;
 }
 
+
+
+
+
+.heart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.heart-button:hover {
+  transform: scale(1.1);
+}
+
+.heart-button.liked .heart-icon {
+  color: white;
+
+}
+
+.heart-icon {
+  color: #1976d2;
+  transition: color 0.2s;
+}
+
