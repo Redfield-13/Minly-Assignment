@@ -15,51 +15,57 @@ import { useState , useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function MultiActionAreaCard(props) {
-  console.log(props);
     let user = useContext(UserContex);
-    const [isClick, setClick] = useState(false);
+    const [isClick, setClick] = useState(JSON.parse(localStorage.getItem("clicked")));
+    localStorage.setItem("clicked", JSON.stringify(isClick))
     let [liked,setLiked] = useState(false)
     let [unLiked,setUnLiked] = useState(false)
     const [likes, setLikes] = useState(props.likes);
-    const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+props.likes+'&mediaID='+props.id+'&operation='
-    const delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
+    const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+likes+'&mediaID='+props.id+'&operation='
+    let delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
     const handleLike = async () => {
-      setClick(!isClick)
+      console.log(JSON.parse(localStorage.getItem("clicked")));
+      if (JSON.parse(localStorage.getItem("clicked"))) {
+        setLikes(likes-1);
+          setLiked(!JSON.parse(localStorage.getItem("clicked")))
+          setClick(!JSON.parse(localStorage.getItem("clicked")))
+        try {
+          const response = await axios.post(apiUrl+'unlike', {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          
+        } catch (error) {
+          console.error(error);
+        }
+      }else{
         if (liked) {
-            setLikes(likes-1)
-            setLiked(false)
-        if (unLiked && !liked) {
-          setLikes(likes + 2)
-          setLiked(true)
-          setUnLiked(false)
-        }
-        }else{
-            try {
-                const response = await axios.post(apiUrl+'like', {
-                  headers: {
-                    'Content-Type': 'application/json'
-                  }
-                });
-                if (!liked) {
-                  setLikes(likes + 1);
-                  setLiked(true)
+         
+      }else{
+           try {
+              const response = await axios.post(apiUrl+'like', {
+                headers: {
+                  'Content-Type': 'application/json'
                 }
-                
-              } catch (error) {
-                console.error(error);
-              }
-        }
+              });
+              setLikes(likes + 1);
+              setLiked(!JSON.parse(localStorage.getItem("clicked")))
+              setClick(!JSON.parse(localStorage.getItem("clicked")))
+              
+            } catch (error) {
+              console.error(error);
+            }
+      }
+      }
+      
+        
     };
-
     const handleunLike = async () => {
         if (unLiked) {
             setLikes(likes + 1)
             setUnLiked(false)
-        }
-        if (liked && !unLiked) {
-          setLikes(likes - 2)
-          setLiked(false)
-          setUnLiked(true)
         }
         else{
           try {
@@ -68,21 +74,17 @@ export default function MultiActionAreaCard(props) {
                 'Content-Type': 'application/json'
               }
             });
-            if (!unLiked) {
-              setLikes(likes - 1);
+  
+            setLikes(likes - 1);
             setUnLiked(true)
-            }
-            
           } catch (error) {
             console.error(error);
           }
         }
         
       };
-
-
+  
       const handleDelete = async ()=>{
-        
         try{
           const response = await axios.post(delUrl+props.id,{
             headers: {
@@ -116,7 +118,7 @@ export default function MultiActionAreaCard(props) {
       </CardActionArea>
       <CardActions sx={{marginLeft:10}}>
         <Button size="small" color="primary">
-          <Heart  isClick={isClick} onClick={handleLike} />
+          <Heart  isClick={JSON.parse(localStorage.getItem("clicked"))} onClick={handleLike} />
           <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>
           {/* <HeartBroken onClick={handleunLike}></HeartBroken> */}
           
