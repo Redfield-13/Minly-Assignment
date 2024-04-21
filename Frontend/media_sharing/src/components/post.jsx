@@ -16,19 +16,20 @@ import { Link } from 'react-router-dom';
 
 export default function MultiActionAreaCard(props) {
     let user = useContext(UserContex);
-    const [isClick, setClick] = useState(JSON.parse(localStorage.getItem("clicked")));
-    localStorage.setItem("clicked", JSON.stringify(isClick))
+    const localStorgaeKey = props.id
+    const [isClick, setClick] = useState(JSON.parse(localStorage.getItem("clicked"+props.id)));
+    localStorage.setItem("clicked"+props.id, JSON.stringify(isClick))
     let [liked,setLiked] = useState(false)
     let [unLiked,setUnLiked] = useState(false)
     const [likes, setLikes] = useState(props.likes);
     const apiUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/likes?liker='+user.id +'&currentlikes='+likes+'&mediaID='+props.id+'&operation='
     let delUrl = 'https://k8fm9r7b-3456.uks1.devtunnels.ms/delete?imgID='
     const handleLike = async () => {
-      console.log(JSON.parse(localStorage.getItem("clicked")));
-      if (JSON.parse(localStorage.getItem("clicked"))) {
+      console.log(JSON.parse(localStorage.getItem("clicked"+props.id)));
+      if (JSON.parse(localStorage.getItem("clicked"+props.id))) {
         setLikes(likes-1);
-          setLiked(!JSON.parse(localStorage.getItem("clicked")))
-          setClick(!JSON.parse(localStorage.getItem("clicked")))
+          setLiked(!JSON.parse(localStorage.getItem("clicked"+props.id)))
+          setClick(!JSON.parse(localStorage.getItem("clicked"+props.id)))
         try {
           const response = await axios.post(apiUrl+'unlike', {
             headers: {
@@ -51,8 +52,8 @@ export default function MultiActionAreaCard(props) {
                 }
               });
               setLikes(likes + 1);
-              setLiked(!JSON.parse(localStorage.getItem("clicked")))
-              setClick(!JSON.parse(localStorage.getItem("clicked")))
+              setLiked(!JSON.parse(localStorage.getItem("clicked"+props.id)))
+              setClick(!JSON.parse(localStorage.getItem("clicked"+props.id)))
               
             } catch (error) {
               console.error(error);
@@ -118,7 +119,7 @@ export default function MultiActionAreaCard(props) {
       </CardActionArea>
       <CardActions sx={{marginLeft:10}}>
         <Button size="small" color="primary">
-          <Heart  isClick={JSON.parse(localStorage.getItem("clicked"))} onClick={handleLike} />
+          <Heart  isClick={JSON.parse(localStorage.getItem("clicked"+props.id))} onClick={handleLike} />
           <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>
           {/* <HeartBroken onClick={handleunLike}></HeartBroken> */}
           
