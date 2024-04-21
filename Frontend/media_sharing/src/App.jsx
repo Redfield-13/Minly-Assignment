@@ -17,7 +17,7 @@ function App() {
       <UserContex.Provider value={value}>
         <HashRouter>
           <Routes>
-              <Route path='/' element={<Login></Login>}></Route>
+              <Route path='/' element={<Home></Home>}></Route>
               <Route path='/login' element={<Login></Login>}></Route>
               <Route path='/register' element={<Register></Register>}></Route>
               <Route path='/uploads' element={<Upload></Upload>}></Route>
