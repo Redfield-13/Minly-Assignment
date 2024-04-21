@@ -4,8 +4,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import HeartBroken from '@mui/icons-material/HeartBroken';
 import Heart from "react-animated-heart";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
@@ -128,7 +126,6 @@ export default function MediaCover(props) {
         <Button size="small" color="primary">
         <Heart  isClick={JSON.parse(localStorage.getItem("clicked"))} onClick={handleLike} />
           <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>
-          {/* <HeartBroken onClick={handleunLike}></HeartBroken> */}
         </Button>
       </CardActions>
       {props.uploadpage == true && (

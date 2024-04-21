@@ -4,8 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import HeartBroken from '@mui/icons-material/HeartBroken';
 import Heart from "react-animated-heart";
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
@@ -120,11 +118,8 @@ export default function MultiActionAreaCard(props) {
       <CardActions sx={{marginLeft:10}}>
         <Button size="small" color="primary">
           <Heart  isClick={JSON.parse(localStorage.getItem("clicked"+props.id))} onClick={handleLike} />
-          <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>
-          {/* <HeartBroken onClick={handleunLike}></HeartBroken> */}
-          
+          <Typography sx={{marginRight:1, fontSize:27, marginTop:0.25, color:'#e2264d'}}>{likes}</Typography>          
         </Button>
-        
       </CardActions>
       {props.uploadpage == true && (
               <Button sx={{marginLeft:17.2}} size="small" color="error">
